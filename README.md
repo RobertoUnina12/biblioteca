@@ -1,2 +1,2 @@
 # biblioteca
-Piccola Gestionr di una biblioteca.
+Piccola Gestione di una biblioteca.
