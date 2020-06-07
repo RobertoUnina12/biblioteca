@@ -16,17 +16,13 @@ int main()
     richiesta *listarich = NULL, *current;
     int scelta,disponibilita_volumi;//,matricola;
     char titolo[max],matricola[max];
-    int i;
     printf("*** INIZIAMO CON IL POPOLARE LA LIBRERIA *** \n ");
     printf("INSERISCI 15 LIBRI ALL'INTERNO DELLA BIBLIOTECA \n");
-    for (i=0; i<2; i++)
-    {
-        printf("INSERISCI IL %d LIBRO : ",i+1);
-        scanf("%s",titolo);
-        printf("INSERISCI IL NUMERO DEI LIBRI : ");
-        scanf("%d",&disponibilita_volumi);
-        libreria = InserisciCoda(libreria,titolo,disponibilita_volumi);
-    }
+    libreria = InserisciCoda(libreria,"Scus", 25);
+    libreria = InserisciCoda(libreria,"PiccoleDonne", 1);
+    libreria = InserisciCoda(libreria,"a", 3);
+    libreria = InserisciCoda(libreria,"b", 0);
+    libreria = InserisciCoda(libreria,"c", 2);
 
     do{
         printf ("*********** MENU' BIBLIOTECA ***********\n");
