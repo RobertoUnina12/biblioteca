@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 
 #include "richiesta.h"
 #include "studente.h"
@@ -12,10 +13,11 @@ int main()
 {
     libro *libreria = NULL;
     studente *listaStudenti = NULL;
-    richiesta *listarich =NULL, *current;
-    int scelta,disponibilita_volumi,matricola;
-    char titolo[max];
+    richiesta *listarich = NULL, *current;
+    int scelta,disponibilita_volumi;//,matricola;
+    char titolo[max],matricola[max];
     int i;
+    printf("*** INIZIAMO CON IL POPOLARE LA LIBRERIA *** \n ");
     printf("INSERISCI 15 LIBRI ALL'INTERNO DELLA BIBLIOTECA \n");
     for (i=0; i<2; i++)
     {
@@ -25,60 +27,56 @@ int main()
         scanf("%d",&disponibilita_volumi);
         libreria = InserisciCoda(libreria,titolo,disponibilita_volumi);
     }
-    /*libreria = InserisciCoda(libreria,"Orgoglio_e_Pregiudizio", 5);
-    libreria = InserisciCoda(libreria,"Il_Signore_degli_Anelli", 6);
-    libreria = InserisciCoda(libreria,"Il_Profeta", 9);
-    libreria = InserisciCoda(libreria,"Harry_Potter", 9);
-    libreria = InserisciCoda(libreria,"Se_questo_�_un_uomo", 6);
-    libreria = InserisciCoda(libreria,"Cime_Tempestose", 5);
-    libreria = InserisciCoda(libreria,"1984", 4);
-    libreria = InserisciCoda(libreria,"I_PromessiSposi", 4);
-    libreria = InserisciCoda(libreria,"La_Divina_Commedia ", 1);
-    libreria = InserisciCoda(libreria,"Piccole_Donne", 6);
-    libreria = InserisciCoda(libreria,"Lessico_Familiare", 7);
-    libreria = InserisciCoda(libreria,"Comma_22", 6);
-    libreria = InserisciCoda(libreria,"Il_Giardino_dei_Finzi_Contini", 9);
-    libreria = InserisciCoda(libreria,"Il_Nome_della_Rosa", 1);
-    libreria = InserisciCoda(libreria,"Il_Gattopardo", 4);
-*/
 
     do{
-        printf("\n1.Mostra libri in biblioteca\n2.Richiedi libro\n3.Restituisci libro\n4.Mostra lista richieste\n5.Esegui richiesta\n6.Mostra elenco prestiti\n\n0.Esci\n");
+        printf ("*********** MENU' BIBLIOTECA ***********\n");
+        printf("\n 1.MOSTRA LIBRI IN BIBLIOTECA\n");
+        printf("\n 2.RICHIEDI LIBRO\n");
+        printf("\n 3.RESTITUISCI LIBRO \n");
+        printf("\n 4.MOSTRA LISTA RICHIESTE\n");
+        printf("\n 5.ESEGUI RICHIESTA\n");
+        printf("\n 6.MOSTRA ELENCO PRESTITI\n");
+        printf("\n 0.ESCI\n");
+        printf("\n ***************************************** \n");
         scanf("%d", &scelta);
         switch(scelta){
             case 1: //mostra elenco
                 system("cls");
                 puts("");
+                printf(" LIBRI \t | VOLUMI \n");
                 StampaLibri(libreria);
+                printf(" SCEGLI ORA LA PROSSIMA AZIONE : \n");
                 break;
             case 2: // richiedi libro
                 system("cls");
-                printf("\nInserire matricola:\n");
-                scanf("%d", &matricola);
+                printf("\n INSERISCI LA MATRICOLA : \n");
+                scanf("%s", matricola);
                 puts("");
-                puts("Elenco libri:");
+                puts("ELENCO LIBRI : \n");
+                puts("LIBRI \t | VOLUMI \n");
                 StampaLibri(libreria);
-                printf("\nInserire il titolo del libro richiesto:\n");
+                printf("\nINSERIRE TITOLO DEL LIBRO DA RICHIEDERE : \n");
                 scanf("%s", titolo);
                 if(libroinlista(titolo, libreria) == true){
                     listarich = InserisciCodarichiesta(listarich,titolo, false, matricola, (LunghezzaListarich(listarich))+1);
                 }else{
-                    printf("\nLibro non trovato\n");
+                    printf("\nMI DISPIACE IL LIBRO CHE HAI RICHIESTO NON E' STATO TROVATO !! \n");
                 }
                 break;
             case 3: //restituisci libro
                 system("cls");
-                printf("\nInserire matricola:\n");
-                scanf("%d", &matricola);
+                printf("\nINSERISCI LA MATRICOLA :\n");
+                scanf("%s", /*&*/matricola);
                 puts("");
-                puts("Elenco libri:");
+                puts("ELENCO DEI LIBRI :");
+                puts("LIBRI \t | VOLUMI \n");
                 StampaLibri(libreria);
-                printf("\nInserire il titolo del libro da restituire:\n");
-                scanf("%s", &titolo);
+                printf("\nINSERIRE IL TITOLO DEL LIBRO DA RESTITUIRE :\n");
+                scanf("%s", titolo);
                 if(libroinlista(titolo, libreria) == true){
                     listarich = InserisciCodarichiesta(listarich,titolo, true, matricola, (LunghezzaListarich(listarich))+1);
                 }else{
-                    printf("\nLibro non trovato\n");
+                    printf("\nLIBRO NON TROVATO MI DISPIACE !!\n");
                 }
                 break;
             case 4: //elenco richieste
@@ -88,7 +86,7 @@ int main()
             case 5: //esegui richiesta
                 system("cls");
                 if(listarich == NULL){
-                    printf("Nessuna richiesta \n");
+                    printf("AL MOMENTO NON E' PRESENTE NESSUNA RICHIESTA. \n");
                     break;
                 }else{
                     current = listarich;
@@ -96,20 +94,20 @@ int main()
                 int tmp = current->numero;
                 libro *book = getlibro(current->titolo, libreria);
                     if(current->tipo == false){//PRESTITO
-                        if((controllainstudenti(current->matricola, listaStudenti))==true){ //possiede già un libro
-                            printf("%s possiede un altro libro\n", current->matricola);
+                        if((controllainstudenti(current->matricola, listaStudenti))== true){ //possiede già un libro
+                            printf("AL MOMENTO %s POSSIEDE UN ALTRO LIBRO \n", current->matricola);
                             listarich = Eliminarich(tmp, listarich);
                             break;
                         }else{ //non possiede libro
                             if(book->disponibilita_volumi == 0){//libro non disponibile
-                                printf("%s non disponibile\n", current->titolo);
+                                printf("AL MOMENTO %s NON E' DISPONIBILE \n", current->titolo);
                                 listarich = Eliminarich(tmp, listarich);
                                 break;
                             }else{ //libro disponibile
                                 (book->disponibilita_volumi)--;
                                 modificalibro(book, libreria);
                                 listaStudenti = InserisciCodaStudente(listaStudenti, current->matricola, book->titolo);
-                                printf("%s dato in prestito ad %d",book->titolo, current->matricola);
+                                printf("IL LIBRO %s E' STATO DATO IN PRESTITO ALLA MATRICOLA : %s \n ",book->titolo, current->matricola);
                                 listarich = Eliminarich(tmp, listarich);
                                 free(book);
                                 free(current);
@@ -121,22 +119,22 @@ int main()
                        if((controllainstudenti(current->matricola, listaStudenti) == true) && (possiedelibro(current->matricola, current->titolo, listaStudenti)) == true){
                             (book->disponibilita_volumi)++;
                             modificalibro(book, libreria);
-                            printf("%s restituito dalla matricola %d|\n ", book->titolo, current->matricola);
+                            printf("IL LIBRO : %s E' STATO RESTITUITO DALLA MATRICOLA %s \n ", book->titolo, current->matricola);
                             listaStudenti = EliminaStudente(current->matricola, listaStudenti);
                             listarich = Eliminarich(tmp, listarich);
                             break;
                         }else{
-                            printf("Errore : %d non possiede %s\n", current->matricola, current->titolo);
+                            printf("ERRORE : LA MATRICOLA %s NON POSSIEDE IL LIBRO %s\n", current->matricola, current->titolo);
                             listarich = Eliminarich(tmp, listarich);
                             break;
                         }
                     }
-                //listarich = Eliminarich(tmp, listarich);
+                listarich = Eliminarich(tmp, listarich); //QUI HO MODIFICATO.
                 break;
             case 6:
                 system("cls");
                 if(LunghezzaListaStudenti(listaStudenti) == 0){
-                    puts("Nessun prestito");
+                    puts("AL MOMENTO NON E' STATO EFFETTUATO ALCUN PRESTITO");
                     break;
                 }else {
                     stampaListaStudenti(listaStudenti);
@@ -144,10 +142,11 @@ int main()
             case 0:
                 break;
             default:
-                printf("\nScelta invalida\n");
+                printf("\n SCELTA NON VALIDA.. PER FAVORE RIPROVA .\n");
                 break;
         }
     }while(scelta != 0);
     return 0;
 }
+
 
