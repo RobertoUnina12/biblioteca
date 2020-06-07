@@ -13,16 +13,17 @@
 typedef struct richiesta{
     int numero;
     char titolo[max];
-    bool tipo;       //false chiedi | true restituisci
-    int matricola;
+    bool tipo;//false chiedi | true restituisci
+    char matricola[max];
+    //int matricola;
     struct richiesta *next;
 }richiesta;
 
 int LunghezzaListarich(richiesta *listarich);
 
-richiesta *crearichiesta(richiesta *listarich, char *titolo, bool tipo, int matricola, int numero);
+richiesta *crearichiesta(richiesta *listarich, char *titolo, bool tipo, /*int matricola*/ char *matricola, int numero);
 
-richiesta *InserisciCodarichiesta(richiesta *listarichieste, char *titolo, bool tipo, int matricola, int numero);
+richiesta *InserisciCodarichiesta(richiesta *listarichieste, char *titolo, bool tipo, /*int matricola*/char *matricola, int numero);
 
 void Stamparich(richiesta *listarich);
 
@@ -30,7 +31,7 @@ richiesta *daeseguire(richiesta *listarich);
 
 richiesta *Eliminarich(int numero, richiesta* listarich);
 
-bool possiedelibro(int matricola, char *titolo, studente *listaStudenti);
+bool possiedelibro(/*int matricola*/char *matricola, char *titolo, studente *listaStudenti);
 
 richiesta *minima(richiesta *listarich);
 
