@@ -21,7 +21,8 @@ libro *InserisciCoda(libro *libreria, char *titolo, int disponibilita_volumi){
 
 void StampaLibri(libro *libreria){
      if(libreria != NULL){
-         printf("%s %d\n", libreria->titolo, libreria->disponibilita_volumi);
+
+         printf("%s \t | %d\n", libreria->titolo, libreria->disponibilita_volumi);
          StampaLibri(libreria->next);
      }
  }
@@ -34,7 +35,7 @@ int LunghezzaLista(libro *lista){
 bool libroinlista(char *titolo, libro *libreria){
     if(libreria != NULL){
         if(strcmp(titolo, libreria->titolo) == 0){
-            printf("Libro trovato\n");
+            printf(" LIBRO TROVATO !!!\n");
             return true;
         }
         libroinlista(titolo, libreria->next);
@@ -59,7 +60,7 @@ void modificalibro(libro *nuovo, libro *libreria){
     if(libreria != NULL){
         if(strcmp(nuovo->titolo, libreria->titolo) == 0){
             libreria->disponibilita_volumi = nuovo->disponibilita_volumi;
-            printf("\nLibreria aggiornata\n");
+            printf("\n LIBRERIA AGGIORNATA \n");
         }
         modificalibro(nuovo, libreria->next);
     }
