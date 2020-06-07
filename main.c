@@ -17,12 +17,12 @@ int main()
     int scelta,disponibilita_volumi;//,matricola;
     char titolo[max],matricola[max];
     printf("*** INIZIAMO CON IL POPOLARE LA LIBRERIA *** \n ");
-    printf("INSERISCI 15 LIBRI ALL'INTERNO DELLA BIBLIOTECA \n");
-    libreria = InserisciCoda(libreria,"Scus", 25);
-    libreria = InserisciCoda(libreria,"PiccoleDonne", 1);
-    libreria = InserisciCoda(libreria,"a", 3);
-    libreria = InserisciCoda(libreria,"b", 0);
-    libreria = InserisciCoda(libreria,"c", 2);
+    printf("*** CI SONO 15 LIBRI ALL'INTERNO DELLA BIBLIOTECA *** \n");
+    libreria = InserisciCoda(libreria,"GUERRACIVILE", 25);
+    libreria = InserisciCoda(libreria,"PICCOLEDONNE", 1);
+    libreria = InserisciCoda(libreria,"CIAO", 3);
+    libreria = InserisciCoda(libreria,"CIAOGIANDO", 0);
+    libreria = InserisciCoda(libreria,"GRAZIE", 2);
 
     do{
         printf ("*********** MENU' BIBLIOTECA ***********\n");
